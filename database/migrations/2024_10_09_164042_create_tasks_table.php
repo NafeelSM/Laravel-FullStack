@@ -17,7 +17,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('image_path')->nullable();
             $table->string('status');
-            $table->string('priority');
+            $table->string('priority')->nullable();
             $table->timestamp('due_date')->nullable();
             $table->foreignId('assign_user_id')->constrained('users');
             $table->foreignId('created_by')->constrained('users');
