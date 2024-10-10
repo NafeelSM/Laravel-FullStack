@@ -23,8 +23,8 @@ class ProjectResource extends JsonResource
                 'due_date' => (new Carbon($this->due_date))->format('Y-m-d'),
                 'status' => $this->status,
                 'image_path' => $this->image_path,
-                'createdBy' => $this->createdBy, // Assuming createdBy is a related model/resource
-                'updatedBy' => $this->updatedBy,  // Assuming updatedBy is a related model/resource
+                'createdBy' => new UserResource($this->createdBy), // Assuming createdBy is a related model/resource
+                'updatedBy' => new UserResource($this->updatedBy),  // Assuming updatedBy is a related model/resource
 
         ];
     }
