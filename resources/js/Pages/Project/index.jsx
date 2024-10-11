@@ -5,7 +5,25 @@ import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constants.j
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-export default function Index({ auth, projects }) {
+
+export default function Index({ auth, projects, queryParams = null }) {
+
+    queryParams = queryParams || {};
+
+    const searchFieldChanged = (name, value) => {
+        if (value) {
+            queryParams[name] = value;
+        } else {
+            delete queryParams[name];
+        }
+    };
+
+    const onKeyPress = (name, e) => {
+        if (e.key !== 'Enter') return;
+
+        searchFieldChanged(name, e.target.value);
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -53,7 +71,12 @@ export default function Index({ auth, projects }) {
                                         onChange={(e) =>
                                             searchFieldChanged("status", e.target.value)
                                         }
-                                        />
+                                        >
+                                        <option value="">Select status</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="in_progress">In Progress</option>
+                                        <option value="completed">Completed</option>
+                                        </SelectInput>
                                         </th>
                                         <th className="px-3 py-3"></th>
                                         <th className="px-3 py-3"></th>
