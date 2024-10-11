@@ -39,10 +39,21 @@ export default function Index({ auth, projects }) {
                                         <th className="px-3 py-3"></th>
                                         <th className="px-3 py-3"></th>
                                         <th className="px-3 py-3">
-                                        <TextInput/>
+                                        <TextInput
+                                            className="w-full"
+                                            placeholder="Project Name"
+                                            onBlur={e => searchFieldChanged('name', e.target.
+                                            value)}
+                                            onkeypress={e => onKeyPress('name', e)}
+                                        />
+
                                         </th>
                                         <th className="px-3 py-3">
-                                        <SelectInput />
+                                        <SelectInput className="w-full"
+                                        onChange={(e) =>
+                                            searchFieldChanged("status", e.target.value)
+                                        }
+                                        />
                                         </th>
                                         <th className="px-3 py-3"></th>
                                         <th className="px-3 py-3"></th>
