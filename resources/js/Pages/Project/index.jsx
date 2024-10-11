@@ -1,5 +1,7 @@
 import Pagination from "@/Components/Pagination";
-import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constants.js";
+import SelectInput from "@/Components/SelectInput";
+import TextInput from "@/Components/TextInput";
+import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constants.jsx";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
@@ -29,6 +31,23 @@ export default function Index({ auth, projects }) {
                                         <th className="px-3 py-3">Due Date</th>
                                         <th className="px-3 py-3">Created By</th>
                                         <th className="px-3 py-3 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                              {/* filtering */}
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
+                                    <tr>
+                                        <th className="px-3 py-3"></th>
+                                        <th className="px-3 py-3"></th>
+                                        <th className="px-3 py-3">
+                                        <TextInput/>
+                                        </th>
+                                        <th className="px-3 py-3">
+                                        <SelectInput />
+                                        </th>
+                                        <th className="px-3 py-3"></th>
+                                        <th className="px-3 py-3"></th>
+                                        <th className="px-3 py-3"></th>
+                                        <th className="px-3 py-3 text-right"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
