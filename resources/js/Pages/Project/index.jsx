@@ -3,7 +3,7 @@ import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constants.jsx";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 
 
 export default function Index({ auth, projects, queryParams = null }) {
@@ -16,6 +16,8 @@ export default function Index({ auth, projects, queryParams = null }) {
         } else {
             delete queryParams[name];
         }
+
+        router.get(route("project.index"), queryParams);
     };
 
     const onKeyPress = (name, e) => {
@@ -59,6 +61,7 @@ export default function Index({ auth, projects, queryParams = null }) {
                                         <th className="px-3 py-3">
                                         <TextInput
                                             className="w-full"
+                                            defaultValue={queryParams.name}
                                             placeholder="Project Name"
                                             onBlur={e => searchFieldChanged('name', e.target.
                                             value)}
@@ -68,6 +71,7 @@ export default function Index({ auth, projects, queryParams = null }) {
                                         </th>
                                         <th className="px-3 py-3">
                                         <SelectInput className="w-full"
+                                        defaultValue={queryParams.status}
                                         onChange={(e) =>
                                             searchFieldChanged("status", e.target.value)
                                         }
