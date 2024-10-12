@@ -20,12 +20,12 @@ export default function TableHeading({
         {sortable && (
           <span className="flex flex-col">
             <ChevronUpIcon
-              className={`w-4 h-4 ${
+              className={`w-4 h-3 ${
                 isActive && sort_direction === "asc" ? "text-white" : "text-gray-400"
               }`}
             />
             <ChevronDownIcon
-              className={`w-4 h-4 mt-1 ${
+              className={`w-4 h-3 mt-1 ${
                 isActive && sort_direction === "desc" ? "text-white" : "text-gray-400"
               }`}
             />
