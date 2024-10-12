@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Resources\TaskResource; // Import the TaskResource
 
 class TaskController extends Controller
 {
@@ -20,7 +21,7 @@ class TaskController extends Controller
         $sortDirection = request("sort_direction", "desc");
 
         if (request("name")) {
-            $query->where("name", "like", "%". request("name") ."%");
+            $query->where("name", "like", "%" . request("name") . "%");
         }
         if (request("status")) {
             $query->where("status", request("status"));
@@ -30,10 +31,9 @@ class TaskController extends Controller
             ->paginate(10)
             ->onEachSide(1);
 
-        return inertia("Task/Index",[
+        return inertia("Task/Index", [
             "tasks" => TaskResource::collection($tasks),
             'queryParams' => request()->query() ?: null,
-
         ]);
     }
 

@@ -2,14 +2,14 @@ import Pagination from "@/Components/Pagination";
 import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import {
-    Task_STATUS_CLASS_MAP,
-    Task_STATUS_TEXT_MAP,
+    TASK_STATUS_CLASS_MAP,
+    TASK_STATUS_TEXT_MAP,
 } from "@/constants.jsx";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import TableHeading from "@/Components/TableHeading";
 
-export default function Index({ auth, Tasks, queryParams = null }) {
+export default function Index({ auth, tasks, queryParams = null }) {
     queryParams = queryParams || {};
 
     const searchFieldChanged = (name, value) => {
@@ -18,7 +18,7 @@ export default function Index({ auth, Tasks, queryParams = null }) {
         } else {
             delete queryParams[name];
         }
-        router.get(route("Task.index"), queryParams);
+        router.get(route("task.index"), queryParams);
     };
 
     const onKeyPress = (name, e) => {
@@ -34,7 +34,7 @@ export default function Index({ auth, Tasks, queryParams = null }) {
             queryParams.sort_field = name;
             queryParams.sort_direction = "asc";
         }
-        router.get(route("Task.index"), queryParams);
+        router.get(route("task.index"), queryParams);
     };
 
     return (
@@ -188,54 +188,54 @@ export default function Index({ auth, Tasks, queryParams = null }) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {Tasks.data.map((Task) => (
+                                        {tasks.data.map((task) => (
                                             <tr
                                                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                                key={Task.id}
+                                                key={task.id}
                                             >
                                                 <td className="px-3 py-2">
-                                                    {Task.id}
+                                                    {task.id}
                                                 </td>
                                                 <td className="px-3 py-2">
                                                     <img
-                                                        src={Task.image_path}
-                                                        alt={`Image of ${Task.name}`} // Improved alt text for accessibility
+                                                        src={task.image_path}
+                                                        alt={`Image of ${task.name}`} // Improved alt text for accessibility
                                                         style={{ width: 60 }}
                                                     />
                                                 </td>
                                                 <td className="px-3 py-2">
-                                                    {Task.name}
+                                                    {task.name}
                                                 </td>
                                                 <td className="px-3 py-2">
                                                     <span
                                                         className={`px-2 py-1 rounded text-white ${
-                                                            Task_STATUS_CLASS_MAP[
-                                                                Task.status
+                                                            TASK_STATUS_CLASS_MAP[
+                                                                task.status
                                                             ]
                                                         }`}
                                                     >
                                                         {
-                                                            Task_STATUS_TEXT_MAP[
-                                                                Task.status
+                                                            TASK_STATUS_TEXT_MAP[
+                                                                task.status
                                                             ]
                                                         }
                                                     </span>
                                                 </td>
                                                 <td className="px-3 py-2 whitespace-nowrap">
-                                                    {Task.created_at}
+                                                    {task.created_at}
                                                 </td>
                                                 <td className="px-3 py-2 whitespace-nowrap">
-                                                    {Task.due_date}
+                                                    {task.due_date}
                                                 </td>
                                                 <td className="px-3 py-2">
-                                                    {Task.createdBy.name}
+                                                    {task.createdBy.name}
                                                 </td>
                                                 <td className="px-3 py-2 text-right">
                                                     <div className="inline-flex items-center space-x-2">
                                                         <Link
                                                             href={route(
-                                                                "Task.edit",
-                                                                Task.id
+                                                                "task.edit",
+                                                                task.id
                                                             )}
                                                             className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                                         >
@@ -243,8 +243,8 @@ export default function Index({ auth, Tasks, queryParams = null }) {
                                                         </Link>
                                                         <Link
                                                             href={route(
-                                                                "Task.destroy",
-                                                                Task.id
+                                                                "task.destroy",
+                                                                task.id
                                                             )}
                                                             method="delete"
                                                             as="button"
@@ -259,7 +259,7 @@ export default function Index({ auth, Tasks, queryParams = null }) {
                                     </tbody>
                                 </table>
                             </div>
-                            <Pagination links={Tasks.meta.links} />
+                            <Pagination links={tasks.meta.links} />
                         </div>
                     </div>
                 </div>
