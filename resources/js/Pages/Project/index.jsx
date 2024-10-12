@@ -58,21 +58,35 @@ export default function Index({ auth, projects, queryParams = null }) {
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
                                 <tr>
-                                    <th onClick={e => sortChanged('id')} className="px-3 py-3">
-                                        <div className="flex items-center space-x-1">
+                                    <th onClick={e => sortChanged('id')} className="px-3 py-3
+                                            flex items-center justify-between gap-1">
+                                        <div className="flex items-center space-x-1 cursor-pointer">
                                             <span>ID</span>
                                             <span className="flex flex-col">
-                                                <ChevronUpIcon className="w-4 h-4" />
-                                                <ChevronDownIcon className="w-4 h-4 -mt-1" />
+                                                <ChevronUpIcon className={"w-4 " +
+                                                    (queryParams.sort_field === "id" &&
+                                                    queryParams.sort_direction === "asc"
+                                                      ? "text-white"
+                                                      : "")
+
+                                                }
+                                                 />
+                                                <ChevronDownIcon className={"w-4 mt-2 " +
+                                                    (queryParams.sort_field === "id" &&
+                                                    queryParams.sort_direction === "desc"
+                                                      ? "text-white"
+                                                      : "")
+
+                                                } />
                                             </span>
                                         </div>
                                     </th>
 
                                     <th className="px-3 py-3">Image</th>
-                                    <th onClick={e => sortChanged('name')} className="px-3 py-3">Name</th>
-                                    <th onClick={e => sortChanged('stats')} className="px-3 py-3">Status</th>
-                                    <th onClick={e => sortChanged('created_at')} className="px-3 py-3">Created Date</th>
-                                    <th onClick={e => sortChanged('due_date')} className="px-3 py-3">Due Date</th>
+                                    <th onClick={e => sortChanged('name')} className="px-3 py-3 cursor-pointer ">Name</th>
+                                    <th onClick={e => sortChanged('stats')} className="px-3 py-3 cursor-pointer ">Status</th>
+                                    <th onClick={e => sortChanged('created_at')} className="px-3 py-3 cursor-pointer ">Created Date</th>
+                                    <th onClick={e => sortChanged('due_date')} className="px-3 py-3 cursor-pointer ">Due Date</th>
                                     <th className="px-3 py-3">Created By</th>
                                     <th className="px-3 py-3 text-right">Actions</th>
                                 </tr>
