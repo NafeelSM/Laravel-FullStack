@@ -41,6 +41,7 @@ export default function Created({ auth }) {
                                 className="p-4 sm:p-8 bg-white dark:bg-gray-800
                             shadow sm:rounded-lg"
                             >
+
                                 <div>
                                     <InputLabel
                                         htmlFor="project_image_path"
@@ -50,10 +51,9 @@ export default function Created({ auth }) {
                                         id="project_image_path"
                                         type="file"
                                         name="image"
-                                        value={data.image}
                                         className="mt-1 block w-full"
                                         onChange={(e) =>
-                                            setData("image", e.target.value)
+                                            setData("image", e.target.files[0])
                                         }
                                     />
                                     <InputError message={errors.image} className="mt-2" />

@@ -8,6 +8,7 @@ use App\Http\Requests\StoreprojectRequest;
 use App\Http\Requests\UpdateprojectRequest;
 use App\Http\Resources\TaskResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -55,8 +56,13 @@ class ProjectController extends Controller
     public function store(StoreprojectRequest $request)
     {
         $data = $request->validated();
+        $image = $data['image'] ?? null;
         $data ['created_by'] = Auth::id();
         $data ['updated_by'] = Auth::id();
+        if ($image) {
+            $data['image_path'] = $image->store('project/'.Str::random
+            (), 'public');
+        }
         project::create($data);
 
         return to_route('project.index')
