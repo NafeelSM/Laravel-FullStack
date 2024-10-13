@@ -7,6 +7,7 @@ use App\Http\Resources\ProjectResource;
 use App\Http\Requests\StoreprojectRequest;
 use App\Http\Requests\UpdateprojectRequest;
 use App\Http\Resources\TaskResource;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -52,7 +53,12 @@ class ProjectController extends Controller
      */
     public function store(StoreprojectRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data ['created_by'] = Auth::id();
+        $data ['updated_by'] = Auth::id();
+        project::create($data);
+
+        return to_route('project.index');
     }
 
     /**
