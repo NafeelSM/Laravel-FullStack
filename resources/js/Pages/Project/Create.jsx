@@ -1,4 +1,6 @@
+import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
+import TextAreaInput from "@/Components/TextAreaInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
@@ -53,9 +55,39 @@ export default function Created({ auth }) {
                                             setData("image", e.target.value)
                                         }
                                     />
+                                    <InputError message={errors.image} className="mt-2" />
                                 </div>
+                                <div className="mt-4">
+                                <InputLabel htmlFor="project_name" value="Project Name" />
+
+                                    <TextInput
+                                    id="project_name"
+                                    type="text"
+                                    name="name"
+                                    value={data.name}
+                                    className="mt-1 block w-full"
+                                    isFocused={true}
+                                    onChange={(e) => setData("name", e.target.value)}
+                                    />
+
+                                    <InputError message={errors.name} className="mt-2" />
+                                </div>
+                                <div className="mt-4">
+                                <InputLabel htmlFor="project_description" value="Project Description" />
+
+                                    <TextAreaInput
+                                    id="project_description"
+                                    name="description"
+                                    value={data.description}
+                                    className="mt-1 block w-full"
+                                    onChange={(e) => setData("description", e.target.value)}
+                                    />
+
+                                    <InputError message={errors.name} className="mt-2" />
+                                </div>
+
                             </form>
-                        
+
                     </div>
                 </div>
             </div>
