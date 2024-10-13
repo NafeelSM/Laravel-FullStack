@@ -6,7 +6,7 @@ import { Head } from "@inertiajs/react";
 import TasksTable from "./TasksTable";
 
 export default function Index({ auth, tasks, queryParams = null }) {
-    queryParams = queryParams || {};
+    
 
 
 
