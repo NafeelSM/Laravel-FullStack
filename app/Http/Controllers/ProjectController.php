@@ -27,9 +27,10 @@ class ProjectController extends Controller
         if (request("name")) {
             $query->where("name", "like", "%". request("name") ."%");
         }
-        if (request("status")) {
-            $query->where("status", request("status"));
+        if (request("name")) {
+            $query->where("name", "like", "%". request("name") ."%");
         }
+
 
         $projects = $query->orderBy($sortField, $sortDirection)
             ->paginate(10)
@@ -119,7 +120,7 @@ class ProjectController extends Controller
             if ($image) {
                 // Delete the old image if it exists
                 if ($project->image_path) {
-                    Storage::disk('public')->delete($project->image_path);
+                    Storage::disk('public')->deleteDirectory (dirname($project->image_path));
                 }
 
                 // Store the new image and get its path
@@ -139,7 +140,7 @@ class ProjectController extends Controller
         $name = $project->name;
         $project->delete();
         if($project->image_path){
-            Storage::disk('public')->delete (dirname( $project->image_path));
+            Storage::disk('public')->deleteDirectory (dirname( $project->image_path));
         }
         return to_route('project.index')->with('success', "Project \"$name\"was deleted");
     }
