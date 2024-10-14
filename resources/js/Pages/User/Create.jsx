@@ -49,7 +49,7 @@ export default function Created({ auth }) {
                                     name="name"
                                     value={data.name}
                                     className="mt-1 block w-full"
-                                    isFocused={true} // Focus only the first field
+                                    // Focus only the first field
                                     onChange={(e) => setData("name", e.target.value)}
                                 />
                                 <InputError message={errors.name} className="mt-2" />

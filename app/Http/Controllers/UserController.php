@@ -53,7 +53,12 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['password'] = bcrypt($data['password']); 
+        User::create($data);
+
+        return to_route('user.index')
+            ->with('success', 'User Was Created');
     }
 
     /**
