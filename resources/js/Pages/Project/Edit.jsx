@@ -6,18 +6,18 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
-export default function Created({ auth , project}) {
-    const { data, setData, post, errors, reset } = useForm({
+export default function Edit({ auth , project}) {
+    const { data, setData, put, errors, reset } = useForm({
         image: "",
         name: project.name || "",
-        status:project.status || "",
-        description:project.description || "",
-        due_date:project.due_date || "",
+        status: project.status || "",
+        description: project.description || "",
+        due_date: project.due_date || "",
     });
 
     const onSubmit = (e) => {
         e.preventDefault();
-        post(route("project.store"));
+        put(route("project.update", project.id));
     };
 
     return (

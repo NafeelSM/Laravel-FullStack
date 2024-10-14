@@ -9,6 +9,8 @@ use App\Http\Requests\UpdateprojectRequest;
 use App\Http\Resources\TaskResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProjectController extends Controller
 {
@@ -63,7 +65,7 @@ class ProjectController extends Controller
             $data['image_path'] = $image->store('project/'.Str::random
             (), 'public');
         }
-        project::create($data);
+        Project::create($data);
 
         return to_route('project.index')
             ->with('success', 'Project Was Created');
@@ -98,7 +100,7 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(project $project)
+    public function edit(Project $project)
     {
         return inertia('Project/Edit',[
             'project' => new projectResource($project)
@@ -108,10 +110,26 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateprojectRequest $request, project $project)
-    {
-        //
-    }
+        public function update(UpdateProjectRequest $request, Project $project)
+        {
+            $data = $request->validated();
+            $image = $request->file('image');  // Use request->file() for image
+            $data['updated_by'] = Auth::id();
+
+            if ($image) {
+                // Delete the old image if it exists
+                if ($project->image_path) {
+                    Storage::disk('public')->delete($project->image_path);
+                }
+
+                // Store the new image and get its path
+                $data['image_path'] = $image->store('project/' . Str::random(), 'public');
+            }
+
+            $project->update($data);
+
+            return to_route('project.index')->with('success', "Project \"{$project->name}\" was updated");
+        }
 
     /**
      * Remove the specified resource from storage.
