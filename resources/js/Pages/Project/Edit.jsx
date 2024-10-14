@@ -7,17 +7,18 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Edit({ auth , project}) {
-    const { data, setData, put, errors, reset } = useForm({
+    const { data, setData, post, errors, reset } = useForm({
         image: "",
         name: project.name || "",
         status: project.status || "",
         description: project.description || "",
         due_date: project.due_date || "",
+        _method: "PUT",
     });
 
     const onSubmit = (e) => {
         e.preventDefault();
-        put(route("project.update", project.id));
+        post(route("project.update", project.id));
     };
 
     return (
