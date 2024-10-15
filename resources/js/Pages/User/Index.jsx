@@ -199,7 +199,7 @@ export default function Index({ auth, users, queryParams = null , success }) {
 
                                                 </td>
                                                 <td className="px-3 py-2">
-                                                {user.name}
+                                                {user.email}
                                                 </td>
                                                 <td className="px-3 py-2 whitespace-nowrap">
                                                     {user.created_at}
