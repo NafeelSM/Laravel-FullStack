@@ -13,7 +13,7 @@ export default function Index({ auth, tasks, queryParams = null }) {
                         Tasks
                     </h2>
                     <Link
-                        href={route("project.create")}
+                        href={route("task.create")}
                         className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover: bg-emerald-600"
                     >
                         Add New

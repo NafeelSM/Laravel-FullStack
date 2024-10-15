@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Task;
+use App\Models\Project;
+use App\Models\User;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-
-
-use App\Http\Resources\TaskResource; // Import the TaskResource
+use App\Http\Resources\TaskResource;
+use App\Http\Resources\ProjectResource; // Import the ProjectResource
+use App\Http\Resources\UserResource;
 
 class TaskController extends Controller
 {
@@ -47,7 +49,13 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return inertia("Task/Create");
+        $projects = project::query()->orderBy('name', 'asc')->get();
+        $users = User::all();
+
+        return inertia('Task/Create', [
+            'projects' => ProjectResource::collection($projects),
+            'users' => UserResource::collection($users),
+        ]);
     }
 
     /**
