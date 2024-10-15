@@ -74,7 +74,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return inertia('User/Edit',[
+            'user' => new UserCrudResource($user)
+        ]);
     }
 
     /**
@@ -82,7 +84,15 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $data = $request->validated();
+            $password = $data['password'] ?? null;
+            if ($password) {
+                $data['password'] = bcrypt($password);
+            }else{
+                unset($data['password']);
+            }
+            $user->update($data);
+            return to_route('user.index')->with('success', "User \"{$user->name}\" was updated");
     }
 
     /**
